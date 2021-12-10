@@ -11,6 +11,7 @@ MAX_GEN = 500 # maximum number of generations
 CX_PROB = 0.8 # crossover probability
 MUT_PROB = 0.2 # mutation probability
 MUT_STEP = 0.5 # size of the mutation steps
+STRATEGIC_MUT_STEP = 0.1
 REPEATS = 10 # number of runs of algorithm (should be at least 10)
 OUT_DIR = 'continuous' # output directory for logs
 EXP_ID = 'default' # the ID of this experiment (used to create log names)
@@ -53,6 +54,7 @@ class Mutation:
         self.step_size = step_size
 
     def __call__(self, ind):
+        self.step_size *= np.exp(STRATEGIC_MUT_STEP*np.random.normal())
         return ind + self.step_size*np.random.normal(size=ind.shape)
 
 # applies a list of genetic operators (functions with 1 argument - population) 

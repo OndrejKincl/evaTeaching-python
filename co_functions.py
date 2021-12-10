@@ -120,33 +120,26 @@ def numerical_derivative(f, x):
 # bellow is commented code that shows how to use the functions and also can be 
 # used to create plots of the functions with 2 variables
 
-# f01 = make_f01_sphere(2)
-# f02 = make_f02_ellipsoidal(2)
-# f06 = make_f06_attractive_sector(2)
-# f08 = make_f08_rosenbrock(2)
-# f10 = make_f10_rotated_ellipsoidal(2)
-# x = np.random.uniform(-5, 5, size=(2,))
-# print(x)
-# print(f01(x))
-# print(f02(x))
-# print(f06(x))
-# print(f08(x))
-# print(f10(x))
+if __name__ == "__main__":
+    import matplotlib.pyplot as plt 
+    from mpl_toolkits.mplot3d import Axes3D
 
-# x = y = np.arange(-5.0, 5.0, 0.05)
-# X, Y = np.meshgrid(x, y)
-# Z = np.vstack([np.ravel(X), np.ravel(Y)]).T
+    f01 = make_f01_sphere(2)
+    f02 = make_f02_ellipsoidal(2)
+    f06 = make_f06_attractive_sector(2)
+    f08 = make_f08_rosenbrock(2)
+    f10 = make_f10_rotated_ellipsoidal(2)
+  
+    x = y = np.arange(-5.0, 5.0, 0.05)
+    X, Y = np.meshgrid(x, y)
+    Z = np.vstack([np.ravel(X), np.ravel(Y)]).T
 
-# zs = []
-# for i in range(Z.shape[0]):
-#     zs.append(f10(Z[i]).objective)
-
-# import matplotlib.pyplot as plt 
-# from mpl_toolkits.mplot3d import Axes3D
-
-# fig = plt.figure(figsize=(12,8))
-# ax = fig.add_subplot(111, projection='3d')
-
-# ax.plot_surface(X, Y, np.reshape(zs, X.shape))
-# plt.show()
+    for func in [f01, f02, f06, f08, f10]:
+        fig = plt.figure(figsize=(12,8))
+        zs = []
+        for i in range(Z.shape[0]):
+            zs.append(func(Z[i]).objective)
+        ax = fig.add_subplot(111, projection='3d')
+        ax.plot_surface(X, Y, np.reshape(zs, X.shape))
+        plt.show()
 
